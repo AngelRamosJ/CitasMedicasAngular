@@ -1,0 +1,114 @@
+
+<div class="card text-center shadow rounded-3 w-50 mx-auto mt-4" id="busqueda-curp-citas">
+    <img src="../../../assets/IMG/curp.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">Verificacion de CURP</h5>
+        <div class="w-50 mx-auto">
+            <label class="form-label">Introduce tu CURP</label>
+            <input class="form-control form-control-sm text-center" type="text" name="correo" [(ngModel)]="curpPaciente"/>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        <div class="col-6 my-3 mx-auto">
+            <input class="btn btn-primary" type="button" value="Buscar" (click)="buscarCURP()">
+        </div>
+    </div>
+</div>
+<div class="mt-4" id="citas-paciente">
+    <div class="card text-center w-75 mx-auto border-0 rounded-3 my-4" *ngFor="let cit of citas; let indice=index">
+        <div class="row shadow px-3 px-md-0" *ngIf="cit.estado == 'A'">
+            
+            
+            <div class="col-0 d-none d-md-block col-md-1 bg-primary rounded-start" style="width: 1em;"></div>                
+            <div class="col-12 col-md-3 py-3 row align-items-center">
+                <div class="datos-citas-{{indice}}">
+                    <div *ngIf="claves[indice] == cit.clave_identificacion" >Fecha: {{cit.fecha_encuentro}}</div>
+                    <div *ngIf="claves[indice] == cit.clave_identificacion" >Hora: {{cit.hora_encuentro}}</div>
+                </div>
+                
+            </div>
+                        
+                
+            
+            <div class="col-12 col-md-6 my-3 text-start border-start">
+                <div><span class="h3">Farmacia la Esperanza</span></div>
+                <div class="datos-citas-{{indice}}">
+                    <div *ngIf="claves[indice] == cit.clave_identificacion" >Sucursal: {{sucursales[indice].nombre}}</div>
+                    <div *ngIf="claves[indice] == cit.clave_identificacion" >Consultorio: {{consultorios[indice].numero_identificacion}}</div>
+                    <div *ngIf="claves[indice] == cit.clave_identificacion" >Ubicacion: {{localidades[indice].calle}}, {{localidades[indice].exterior}}, {{localidades[indice].interior}}, {{localidades[indice].codigo_postal}} {{localidades[indice].ciudad}}, {{localidades[indice].estado}}, {{localidades[indice].pais}}</div>
+                    <div *ngIf="claves[indice] == cit.clave_identificacion" >Doctor: {{doctores[indice].nombre}} {{doctores[indice].paterno}} {{doctores[indice].materno}}</div>
+                </div>
+                
+                <div id="comprueba-clave-cita-{{indice}}" class="comprobador-clave-cita text-center mt-3">
+                    <label class="form-label mb-3 h5">Proporciona la Clave de la Cita</label>
+                    <input class="form-control form-control-sm text-center mb-3" type="text" name="correo" [(ngModel)]="claveCita"/>
+                    <button type="button" class="btn btn-primary my-2" (click)="agregaClaveCita(claveCita,indice)">Verificar y Mostrar</button>
+                </div>
+            </div> 
+            <div class="col-12 col-md-3 container d-flex align-items-center justify-content-center">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-primary my-2" id="boton-mostrar-{{indice}}" (click)="showHideCompruebaClaveCita(indice)">
+                            <i class="bi bi-eye-slash-fill" style="font-size: 30px;"></i>
+                            <i class="bi bi-eye-fill" style="font-size: 30px;"></i>
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button " class="btn btn-danger my-2 disabled" id="boton-eliminar-{{indice}}" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="guardarIndiceEliminarCita(indice)">
+                            <i class="bi bi-trash" style="font-size: 30px;"></i>
+                        </button>                        
+                    </div>
+      
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">¿Está Seguro de Cancelar la Cita?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                    
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" class="btn btn-success me-4" data-bs-dismiss="modal">NO</button>
+                            <button type="button" class="btn btn-danger ms-4" data-bs-dismiss="modal" (click)="setConfirmacionEliminarCita('S')">SI</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--
+<div class="card text-center shadow-sm w-75 mx-auto" *ngFor="let cit of citas; let indice=index">
+    <div class="row">
+        <div class="col-4">
+            <div class="row">
+                <div class="col-1 bg-primary">
+                
+                </div>
+                
+                <div class="col-11">
+                    <div class="row">
+                        
+                        <div class="col-12 my-3 border-end">
+                            <div>Fecha: {{cit.fecha_encuentro}}</div>
+                            <div>Hora: {{cit.hora_encuentro}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-8 my-3">
+            <div>Sucursal: {{sucursales[indice].nombre}}</div>
+            <div>Consultorio: {{consultorios[indice].numero_identificacion}}</div>
+            <div>Ubicacion: {{localidades[indice].calle}}, {{localidades[indice].exterior}}, {{localidades[indice].interior}}, {{localidades[indice].codigo_postal}} {{localidades[indice].ciudad}}, {{localidades[indice].estado}}, {{localidades[indice].pais}}</div>
+            <div>Doctor: {{doctores[indice].nombre}}</div>
+        </div>
+    </div>
+</div>
+-->

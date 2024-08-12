@@ -1,0 +1,60 @@
+
+.fondo_login{
+    background-image: url(../IMG/fondo_login.jpg);
+    background-position: center center;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.tamaño_container_login{
+    height: 500px;   
+}
+
+.estilo_login_iconos{
+    height: 20px;
+    filter: invert(100%);
+}
+.fondo_formulario_cita{
+    background-image: url(../IMG/fondo_formulario_cita_medica_7.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.fondo_formulario_paciente{
+    background-image: url(../IMG/fondo_formulario_paciente.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.fondo_formulario_localidad{
+    background-image: url(../IMG//fondo_formulario_localidad.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.tamaño_container_nuevo_cita{
+    height: 900px;   
+}
+
+nav{
+    background-color: rgb(36, 36, 36);
+}
+
+#footer {
+    background-color: rgb(36, 36, 36);
+    height: 200px;
+
+}
+
+#footer .h6{
+    color: rgb(122, 122, 122);
+}
+
+.bg-icono-social{
+    background: rgb(51, 51, 51);
+    width: 70px;
+    height: 60px;
+}

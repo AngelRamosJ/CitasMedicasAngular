@@ -1,0 +1,329 @@
+
+<!--
+<table>
+    <tr>
+        <th>Indice</th>
+        <th>Doctor</th>
+        <th>Paciente</th>
+        <th>Fecha de Encuentro</th>
+        <th>Hora de Encuentro</th>
+        <th>Clave de Identificacion</th>
+        <th>Estado</th>
+    </tr>
+    <tr *ngFor="let cita of citas;let indice=index">
+        <td> {{indice+1}} </td>
+        <td>{{nombres[indice].nombre_doctor}}</td>
+        <td>{{nombres[indice].nombre_paciente}}</td>
+        <td>{{cita.fecha_encuentro}}</td>
+        <td>{{cita.hora_encuentro}}</td>
+        <td>{{cita.clave_identificacion}}</td>
+        <td>{{cita.estado}}</td>
+    </tr>
+</table> 
+-->
+
+<div class="card text-center shadow rounded-3 w-50 mx-auto mt-4" id="verificacion-citas">
+    <img src="../../../assets/IMG/fondo_formulario_cita_medica.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">Verificacion de Citas</h5>
+        <legend class="col-form-label mb-3">¿Es la primera vez que solicita una Cita?</legend>
+        
+            <div class="row mt-2">
+                <div class=" col-6 form-chek ps-md-5">
+                    <input class="form-check-input" type="radio" name="verificacino" id="radio1" [(ngModel)]="eleccionVerificacion" value='S'>
+                    <label class="form-check-label ms-2">Si</label>
+                </div>
+                <div class="col-6 form-chek pe-md-5">
+                    <input class="form-check-input" type="radio" name="verificacino" id="radio2" [(ngModel)]="eleccionVerificacion" value='N'>
+                    <label class="form-check-label ms-2">No</label>
+                </div>
+            </div>
+    
+    </div>
+    <div class="card-footer text-muted">
+        <div class="col-6 my-3 mx-auto">
+            <input class="btn btn-primary" type="button" value="Verificar" (click)="verificarVentana()">
+        </div>
+    </div>
+</div>
+
+<div class="card text-center shadow rounded-3 w-50 mx-auto mt-4" id="busqueda-curp-paciente">
+    <img src="../../../assets/IMG/curp.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">Verificacion de CURP</h5>
+        <div class="w-50 mx-auto">
+            <label class="form-label">Introduce tu CURP</label>
+            <input class="form-control form-control-sm text-center" type="text" name="correo" [(ngModel)]="curpPaciente"/>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        <div class="col-6 my-3 mx-auto">
+            <input class="btn btn-primary" type="button" value="Buscar" (click)="buscarCURP()">
+        </div>
+    </div>
+</div>
+
+
+<div class="container px-4 p-md-4 mt-4" id="confirmacion-cita">
+    <div class="row shadow"> 
+        <div class="col-12 p-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <span class="h1">
+                        Datos de tu Cita
+                    </span>
+                </div>
+                <div class="col-12">
+                    <table id="tab" class="stacktable table table-sm table-striped table-hover table-bordered align-middle caption-top table-responsive ">
+                        <caption>Información de General de Cita</caption>
+                        <thead class="table-dark text-center ">
+                            <tr>
+                                <th scope="col">Datos</th>
+                                <th scope="col">Valores</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Clave o Identificacion de Cita</th>
+                                <td>{{cita.clave_identificacion}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Estado de la Cita</th>
+                                <td *ngIf="cita.estado == 'A'">Activa</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Fecha de Encuentro</th>
+                                <td>{{cita.fecha_encuentro}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Hora de Encuentro</th>
+                                <td>{{cita.hora_encuentro}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Doctor</th>
+                                <td>
+                                    <div *ngFor="let doc of doctores">
+                                        <span *ngIf=" doc.id == doctorElegido">{{doc.nombre}} {{doc.paterno}} {{doc.materno}}</span>
+                                    </div>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Ubicación de la Sucursal</th>
+                                <td>
+                                    <div *ngFor="let loc of localidades">
+                                        <span *ngIf=" loc.id == num_sucursal">{{loc.calle}}, {{loc.exterior}}, {{loc.interior}}, {{loc.codigo_postal}} {{loc.ciudad}}, {{loc.estado}}, {{loc.pais}}</span>
+                                    </div>    
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Numero de Consultorio</th>
+                                <td>{{consultorio.numero_identificacion}}</td>
+                            </tr>
+                        
+        
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6 text-center text-md-end my-2">
+                    <a  [routerLink]="['/principal']" [routerLinkActive]="['actived']" class="btn btn-outline-danger  fs-6">
+                        <i class="bi bi-house-fill" style="font-size: 30px;"></i> Principal
+                    </a>
+                </div>
+                <div class="col-6 text-lg-start my-2">
+                    <button type="button" class="btn btn-outline-warning" (click)="showHidePagoPayPal()">
+                        <i class="bi bi-paypal" style="font-size: 30px;"></i> Pago PayPal                        
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center border-top py-4" id="div-pago-paypal">
+            <ngx-paypal [config]="payPalConfig" class="w-50" id="pago-paypal"></ngx-paypal>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5 p-2 p-md-4 mt-4 px-4" id="formularios-citas">
+    <div class="row"> 
+        <div class="col-lg-5 fondo_formulario_paciente shadow d-none d-lg-block tamaño_container_nuevo_departamentos" id="fondo_formularios_citas">
+
+        </div>
+        
+        <div class="col-12 col-lg-7 d-flex align-items-center justify-content-center px-4 px-md-5 px-lg-4 px-xl-5 shadow tamaño_container_nuevo_cita">
+            <div class="row g-3">
+
+
+
+                <div class="col-12 text-center form-paciente">
+                    <span class="fs-1">
+                        Datos de Paciente
+                    </span>
+                </div>
+                
+                <form #proyectoForm="ngForm" class="form-paciente" (ngSubmit)="onSubmitPaciente()">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <label class="form-label ">Nombre:</label>
+                            <input class="form-control form-control-sm text-center" type="text" name="nombre" [(ngModel)]="paciente.nombre"/>
+                        </div>
+                        
+                        <div class="col-6">
+                            <label class="form-label ">Paterno:</label>
+                            <input class="form-control form-control-sm text-center" type="text" name="paterno" [(ngModel)]="paciente.paterno"/>
+                        </div>
+                        <div class="col-5 col-md-6">
+                            <label class="form-label">Materno:</label>
+                            <input class="form-control form-control-sm text-center" type="text" name="materno" [(ngModel)]="paciente.materno"/>
+                        </div>
+                        <div class="col-7 col-md-6">
+                            <label class="form-label">Fecha Nacimiento:</label>
+                            <input class="form-control form-control-sm text-center" type="date" name="fecha_nacimiento" [(ngModel)]="paciente.fecha_nacimiento"/>
+                        </div>
+                        <div class="col-7 col-md-8 col-lg-7">
+                            <label class="form-label">Correo:</label>
+                            <input class="form-control form-control-sm text-center" type="text" name="correo" [(ngModel)]="paciente.correo"/>
+                        </div>
+                        <div class="col-5 col-md-4 col-lg-5">
+                            <label class="form-label ">Teléfono:</label>
+                            <input class="form-control form-control-sm text-center" type="text" name="telefono" [(ngModel)]="paciente.telefono"/>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label class="form-label ">CURP:</label>
+                            <input class="form-control form-control-sm text-center" type="text" name="curp" [(ngModel)]="paciente.curp"/>
+                        </div>
+                        
+                        <legend class="col-form-label col-12 col-md-3">Sexo:</legend>
+                        <div class="col-12 col-md-9 ">
+                            <div class="row mt-md-2">
+                                <div class=" col-6 form-chek">
+                                    <input class="form-check-input" type="radio" name="sexo" id="radio1" [(ngModel)]="paciente.sexo" value='M'>
+                                    <label class="form-check-label ms-2">Masculino</label>
+                                </div>
+                                <div class="col-6 form-chek">
+                                    <input class="form-check-input" type="radio" name="sexo" id="radio2" [(ngModel)]="paciente.sexo" value='F'>
+                                    <label class="form-check-label ms-2">Femenino</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-6 mb-3 mt-4  mx-auto d-grid grap-2">
+                            <input class="btn btn-primary" type="submit" value="Guardar">
+                        </div>
+                    </div>
+                </form>
+
+
+                <div class="col-12 text-center form-localidad">
+                    <span class="fs-1">
+                        Datos de Localidad
+                    </span>
+                </div>
+                <form #proyectoForm="ngForm" class="form-localidad" (ngSubmit)="onSubmitLocalidad()">
+                    <div class="row g-3">
+                        
+                        
+                        <div class="col-5">
+                            <label class="form-label">Pais:</label>
+                            <input class="form-control form-control-sm text-center" type="text" name="pais" [(ngModel)]="localidad.pais"/>
+                        </div>
+                        
+                        <div class="col-7">
+                            <label class="form-label">Estado:</label>
+                            <input class="form-control form-control-sm text-center" type="text" name="estado" [(ngModel)]="localidad.estado"/>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <label class="form-label">Codigo Postal:</label>
+                            <input class="form-control form-control-sm text-center" type="text" name="codigo_postal" [(ngModel)]="localidad.codigo_postal"/>
+                        </div>
+                        <div class="col-6 col-md-8">
+                            <label class="form-label">Ciudad:</label>
+                            <input class="form-control form-control-sm text-center " type="text" name="ciudad" [(ngModel)]="localidad.ciudad"/>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label">Calle:</label>
+                            <input class="form-control form-control-sm text-center" type="text" name="calle" [(ngModel)]="localidad.calle"/>
+                        </div>
+                        
+            
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="form-label">Exterior:</label>
+                                </div>
+                                <div class="col-12">
+                                    <input class="form-control form-control-sm text-center" type="text" name="exterior" [(ngModel)]="localidad.exterior"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="form-label">Interior:</label>
+                                </div>
+                                <div class="col-12">
+                                    <input class="form-control form-control-sm text-center" type="text" name="interior" [(ngModel)]="localidad.interior"/>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                        
+                        <div class="col-6 d-grid grap-2 mx-auto">
+                            <input class="btn btn-primary" type="submit" value="Guardar">
+                        </div>
+                    </div>
+                </form>
+
+
+                <div class="col-12 text-center form-cita">
+                    <span class="fs-1">
+                        Datos de Cita
+                    </span>
+                </div>
+                <form #proyectoForm="ngForm" class="form-cita" (ngSubmit)="onSubmitCita()">
+                    <div class="col-12 mb-3">
+                        <label class="form-label">Ciudad:</label>
+                        <select class="form-select form-select-sm" name="ciudades" [(ngModel)]="ciudadElegida">
+                            <option value="" name = "ciudades">Sin preferencia</option>
+                            <option *ngFor="let localidadC of ciudades;" value={{localidadC.ciudad}} name = "localidades">{{localidadC.ciudad}}</option>
+                        </select>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">Sucursal:</label>
+                        <select class="form-select form-select-sm" name="sucursales" [(ngModel)]="sucursalElegida">
+                            <option value="" name = "sucursales"></option>
+                            <option *ngFor="let localidadC of localidades; let indice=index" value={{sucursales[indice].id}} name = "localidades">{{sucursales[indice].nombre}}: {{localidadC.calle}}, {{localidadC.exterior}}, {{localidadC.interior}}, {{localidadC.codigo_postal}} {{localidadC.ciudad}}, {{localidadC.estado}}, {{localidadC.pais}}</option>
+                        </select>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">Fecha de Encuentro:</label>
+                        <input class="form-control form-control-sm text-center" type="date" name="fecha_encuentro" [(ngModel)]="fechaElegida"/>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">Hora de Encuentro:</label>
+                        <select class="form-select form-select-sm" name="hora_encuentro" id="hora_encuentro" [(ngModel)]="horaElegida">
+                            <option value="" name = "hora_encuentro"></option>
+                            <option *ngFor="let horario of horarios;" value={{horario.hora}} name = "hora_encuentro">{{horario.hora}}</option>
+                            
+                        </select>
+                    </div>
+                    <div class="col-12 mb-5">
+                        <label class="form-label">Doctor:</label>
+                        <select class="form-select form-select-sm" name="doctores" id="doctores" [(ngModel)]="doctorElegido">
+                            <option value=-1 name = "doctores"></option>
+                            <option *ngFor="let doctor of doctores;" value={{doctor.id}} name = "doctores">{{doctor.nombre}} {{doctor.paterno}} {{doctor.materno}}</option>
+                            
+                        </select>
+                    </div>
+                    <div class="col-6 d-grid grap-2 mx-auto">
+                        <input class="btn btn-primary" type="submit" value="Guardar">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    
+</div>

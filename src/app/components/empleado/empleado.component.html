@@ -1,0 +1,61 @@
+<div class="container mt-3 px-5" id="login-empleado">
+    <div class="row d-flex align-items-center justify-content-center vh-75">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-4 fondo_login shadow tamaño_container_login d-none d-lg-block">
+        </div>
+        <div class="col-12 col-lg-6 d-flex align-items-center justify-content-center shadow px-5 tamaño_container_login">
+            <div class="row g-3">
+                <div class="col-12 text-center">
+                    <span class="fs-1">
+                        Iniciar Sesión
+                    </span>
+                </div>
+                
+                <div class="col-md-1 col-lg-0"></div>
+                <div class="col-12 col-md-10 col-lg-12  mb-md-2 mb-lg-0">
+                    <label class="form-label ">Usuario:</label>
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text bg-success"><img class="estilo_login_iconos" src="../../../assets/IMG/usuario.png" alt="U"></span>
+                        <input class="form-control form-control-sm text-center" type="text" placeholder="" [(ngModel)]="login"/>
+                    </div>
+                </div>
+                <div class="col-md-1 col-lg-0"></div>
+                <div class="col-md-1 col-lg-0"></div>
+                <div class="col-12 col-md-10 col-lg-12 mb-2 mb-md-4">
+                    <label class="form-label ">Contraseña:</label>
+                    <div class="input-group flex-nowrap input-group">
+                        <span class="input-group-text bg-success"><img class="estilo_login_iconos" src="../../../assets/IMG/llave.png" alt="P"></span>
+                        <input class="form-control form-control-sm text-center" type="text" placeholder="" [(ngModel)]="contrasenia"/>
+                    </div>
+                </div>
+                <div class="col-md-1 col-lg-0"></div>
+                <div class="col-6 d-grid grap-2 mx-auto">
+                    <input class="btn btn-success" type="submit" value="Guardar" (click)="verificaEmpleado()">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+</div>
+<div class="container shadow w-50 mt-4 py-4" id="descarga-pdf">
+    <div class="row g-2 d-flex vh-75">
+        <div class="col-12 col-md-6">
+            <label class="form-label">Mes:</label>
+            <select class="form-select form-select-sm" name="fechasE" [(ngModel)]="mesElegido">
+                <option value="" name = "mesE"></option>
+                <option *ngFor="let mes of fechasEleccion[0].meses;" value={{mes}} name = "mesE">{{mes}}</option>
+            </select>
+        </div>
+        <div class="col-12 col-md-6">
+            <label class="form-label">Año:</label>
+            <select class="form-select form-select-sm" name="fechasA" [(ngModel)]="anioElegido">
+                <option value="" name = "anioE"></option>
+                <option *ngFor="let fecha of fechasEleccion;" value={{fecha.anio}} name = "anioE">{{fecha.anio}}</option>
+            </select>
+        </div>
+        <div class="col-12 col-md-6 mt-4 mx-auto d-grid grap-2">
+            <button class="btn btn-outline-danger" (click)="generatePDF()">Descargar PDF</button>
+        </div>
+    </div>
+</div>
+
